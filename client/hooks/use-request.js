@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 
-const useRequest = ({ url, method, body }) => {
+const useRequest = ({ url, method, body, onSuccess }) => {
   // method === "post"/"get"/"patch"...
   const [errors, setErrors] = useState(null);
 
@@ -9,6 +9,9 @@ const useRequest = ({ url, method, body }) => {
     try {
       setErrors(null);
       const response = await axios[method](url, body);
+      if (onSuccess) {
+        onSuccess(response.data);
+      }
       return response.data;
     } catch (err) {
       setErrors(
