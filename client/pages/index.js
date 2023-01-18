@@ -15,7 +15,7 @@ export async function getServerSideProps({ req }) {
   const { data } = await axios.get(
     "http://ingress-nginx-controller.ingress-nginx.svc.cluster.local/api/users/currentuser",
     {
-      headers: req.headers,
+      headers: req.headers,  //for ingress-nginx to know what service and port to go
     }
   );
   // Pass data to the page via props
