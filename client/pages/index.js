@@ -10,18 +10,15 @@ const LandingPage = ({ currentUser }) => {
 };
 
 // This gets called on every request
-export async function getServerSideProps() {
+export async function getServerSideProps({ req }) {
   // Fetch data from external API
   const { data } = await axios.get(
     "http://ingress-nginx-controller.ingress-nginx.svc.cluster.local/api/users/currentuser",
     {
-      headers: {
-        Host: "ticketing.dev", //for ingress-nginx to know what service and port to go
-      },
+      headers: req.headers,
     }
   );
   // Pass data to the page via props
-  console.log(data);
   return { props: { currentuser: data } };
 }
 
