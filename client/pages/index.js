@@ -1,7 +1,7 @@
-import axios from "axios";
+import buildClient from "../api/build-client";
 
 const LandingPage = ({ currentUser }) => {
-  // console.log(currentUser);
+  console.log(currentUser);
   // axios.get('/api/users/currentuser').catch((err) => {
   //   console.log(err.message);
   // });
@@ -10,16 +10,12 @@ const LandingPage = ({ currentUser }) => {
 };
 
 // This gets called on every request
-export async function getServerSideProps({ req }) {
+export async function getServerSideProps(context) {
   // Fetch data from external API
-  const { data } = await axios.get(
-    "http://ingress-nginx-controller.ingress-nginx.svc.cluster.local/api/users/currentuser",
-    {
-      headers: req.headers,  //for ingress-nginx to know what service and port to go
-    }
-  );
+  const client = buildClient(context);
+  const { data } = await client.get("/api/users/currentuser");
   // Pass data to the page via props
-  return { props: { currentuser: data } };
+  return { props: { currentUser: data } };
 }
 
 export default LandingPage;
