@@ -6,12 +6,12 @@ const start = async () => {
     throw new Error("JWT_KEY must defined");
   }
 
-  if (!process.env.MONGO_URL) {
-    throw new Error("MONGO_URL must defined");
+  if (!process.env.MONGO_URI) {
+    throw new Error("MONGO_URI must defined");
   }
 
   try {
-    await mongoose.connect(process.env.MONGO_URL);
+    await mongoose.connect(process.env.MONGO_URI);
     console.log("Connected to MongoDB");
   } catch (err) {
     console.log(err);

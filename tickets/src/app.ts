@@ -1,10 +1,6 @@
 import express from "express";
 import "express-async-errors";
 import { json } from "body-parser";
-import { currentuserRouter } from "./routes/current-user";
-import { signinRouter } from "./routes/signin";
-import { signoutRouter } from "./routes/signout";
-import { signupRouter } from "./routes/signup";
 import { errorHandler, NotFoundError } from "@bssbssticket/common";
 import cookieSession from "cookie-session";
 const app = express();
@@ -16,10 +12,7 @@ app.use(
     secure: process.env.NODE_ENV !== "test", //use https for not testing
   })
 );
-app.use(currentuserRouter);
-app.use(signinRouter);
-app.use(signoutRouter);
-app.use(signupRouter);
+
 app.all("*", async () => {
   throw new NotFoundError();
 });
