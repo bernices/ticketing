@@ -6,6 +6,7 @@ import { OrderCreatedListener } from "./events/listener/order-created-listener";
 import { OrderCancelledListener } from "./events/listener/order-cancelled-listener";
 
 const start = async () => {
+  console.log("Starting ticket");
   // a check that env variable is defined
   if (!process.env.JWT_KEY) {
     throw new Error("JWT_KEY must defined");
@@ -41,7 +42,7 @@ const start = async () => {
 
     new OrderCreatedListener(natsWrapper.client).listen();
     new OrderCancelledListener(natsWrapper.client).listen();
-    
+
     await mongoose.connect(process.env.MONGO_URI);
     console.log("Connected to MongoDB");
   } catch (err) {
